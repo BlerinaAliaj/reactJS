@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>React First File</title>
+        <script src="https:fb.me/react-0.14.7.js"></script>
+        <script src="https:fb.me/react-dom-0.14.7.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.2/browser.min.js"></script>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script type="text/babel">
+        var SecondComponent = React.createClass({
+            // Make use of propTypes (property type) to specify type of variable and if it is 
+            // required or not
+            propTypes: {
+                name: React.PropTypes.string.isRequired,
+                location: React.PropTypes.string.isRequired
+            }, // always use a comma to separate methods
+            // Can use default properties, with getDefaultProps which is a class
+            // method, a function that returns an object, in this case, a key-value
+            // pair, with key being the variable that needs to be returned in case 
+            // we don't specify it below when we render the component. The default
+            // proptypes can be overwritten below.
+
+            getDefaultProps: function() {
+                return {
+                    name: 'Blerina'
+                }
+            },
+
+            render: function(){
+                // This allows variable to be in local scope
+                let name = this.props.name
+                let location = this.props.location
+                console.log(this)
+                return (
+                    // This allows the component to use variables. Similar
+                    // to Jinja, Angular.
+                    <div>
+                        <p> Hello, {name}.</p>
+                        <p> I live in {location}. </p>
+                    </div>   
+                    )
+            }
+        });
+        // Can define propTypes outside of the component, as well as inside
+
+        // SecondComponent.propTypes = {
+        //     name: React.PropTypes.string
+        //     location: React.PropTypes.string.isRequired
+        // }
+
+        ReactDOM.render(
+            <SecondComponent name="Bleri" location="SF" />,
+            document.getElementById('app')
+            );
+        </script>
+    </body>
+</html>
