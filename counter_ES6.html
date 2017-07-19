@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>React First File</title>
+        <script src="/Users/blerinaaliaj/src/react-0.14.3/build/react.js"></script>
+        <script src="/Users/blerinaaliaj/src/react-0.14.3/build/react-dom.js"></script>
+        <script src="/Users/blerinaaliaj/src/babel/5.8.2/browser.min.js"></script>
+        <link rel="stylesheet" type='text/css' href='counter_style.css'>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script type="text/babel">
+        // With React, we cannot use 'class' to specify html element because
+        // 'class' is a reserved word. 
+        // If we want to give the element a class, we use 'className'
+
+        // Build a counter with three buttons that incement counter by the value
+        // on the button
+
+        // Refactoring code so we don't have any hard-coded elements.
+        // We use stateless functional components (just functions) passing in props
+        // We build a stateless functional component of Button and we specify all
+        // properties and from where these properties generate
+        // We use `` to encase different props
+
+
+        class Counter extends React.Component {
+            // use constructor for states, set initial count to 0
+            constructor(props) {
+                super(props);
+                this.state = {count: 0}
+                this.incrementCount = this.incrementCount.bind(this)
+            }
+
+            incrementCount(value) {
+                this.setState({
+                    count: this.state.count + value 
+                })
+            }
+
+            render() {
+                return(
+                    <div className="container">
+                        <h1> Count: {this.state.count} </h1>
+                        <Button style="btn blue-btn" text={`${this.props.text} 
+                        ${this.props.valueOne}`} value={this.props.valueOne} 
+                        clickHandler={() => this.incrementCount(this.props.valueOne)} />
+                        <Button style="btn green-btn" text={`${this.props.text} 
+                        ${this.props.valueTwo}`} value={this.props.valueTwo} 
+                        clickHandler={() => this.incrementCount(this.props.valueTwo)} />
+                        <Button style="btn purple-btn" text={`${this.props.text} 
+                        ${this.props.valueThree}`} value={this.props.valueThree}
+                         clickHandler={() => this.incrementCount(this.props.valueThree)} />
+                        <Button test="Alert!" clickHandler={this.alert} />
+                    </div>
+                )
+            }
+
+        }
+
+        Counter.defaultProps = {valueOne: 1, 
+                                valueTwo: 5, 
+                                valueThree: 10, 
+                                text: "Add"}
+
+
+        const Button = (props) => {
+            return (
+                <button className={props.style} value={props.value} 
+                onClick={props.clickHandler}> {props.text} </button>
+            )
+        };
+
+        Button.propTypes = {
+            text: React.PropTypes.string,
+            style: React.PropTypes.string,
+            value: React.PropTypes.number,
+            clickHandler: React.PropTypes.func.isRequired,
+        }
+
+        ReactDOM.render(
+            <Counter />,
+            document.getElementById('app')
+            );
+        </script>
+    </body>
+</html>
